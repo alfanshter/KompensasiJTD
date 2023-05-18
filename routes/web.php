@@ -34,8 +34,14 @@ Route::get('/mahasiswa', [UsersController::class, 'mahasiswa']);
 
 //Kompen
 Route::post('/editkompen', [KompenController::class, 'editkompen']);
+Route::get('/kompenmahasiswa', [KompenController::class, 'kompenmahasiswa']);
+Route::get('/kompenadmin', [KompenController::class, 'kompenadmin']);
+Route::post('/kompenmahasiswa', [KompenController::class, 'ajukankompen']);
+Route::post('/batalkompen', [KompenController::class, 'batalkompen']);
+Route::post('/terimakompen', [KompenController::class, 'terimakompen']);
+Route::get('/tolakkompen/{id}', [KompenController::class, 'tolakkompen']);
 
-//Kompen
+//Kegiatan Kompen
 Route::get('/kegiatan', [KegiatanKompenController::class, 'index']);
 Route::get('/hapuskegiatan/{id}', [KegiatanKompenController::class, 'delete']);
 Route::post('/kegiatan', [KegiatanKompenController::class, 'store']);

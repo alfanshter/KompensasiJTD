@@ -50,7 +50,7 @@
         <div class="collapse" id="ui-basic">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" href="/mahasiswa">Data Mahasiswa</a></li>
-            <li class="nav-item"> <a class="nav-link" href="/akun_pemilik">Pengajuan Kompen</a></li>
+            <li class="nav-item"> <a class="nav-link" href="/kompenadmin">Pengajuan Kompen</a></li>
           </ul>
         </div>
       </li>
@@ -74,7 +74,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="/kuesioner">
+        <a class="nav-link" href="/kompenmahasiswa">
           <span class="menu-title">Ngajukan Kompen</span>
           <i class="mdi mdi-chart-bar menu-icon"></i>
         </a>

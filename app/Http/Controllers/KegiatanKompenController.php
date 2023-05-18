@@ -9,7 +9,7 @@ class KegiatanKompenController extends Controller
 {
     public function index()
     {
-        $data = Kegiatan::orderBy('created_at','DESC')->get();
+        $data = Kegiatan::where('is_status',0)->orderBy('created_at','DESC')->get();
         return view('kegiatan.kegiatan',[
             'data' => $data
         ]);

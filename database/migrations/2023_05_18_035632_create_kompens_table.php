@@ -13,8 +13,14 @@ return new class extends Migration
     {
         Schema::create('kompens', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_user');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->date('tanggal');
             $table->time('waktu');
+            $table->integer('kegiatan_id');
+            $table->string('dosen')->nullable();
+            $table->string('keterangan')->nullable();
+            $table->integer('is_status')->default(0);
             $table->timestamps();
         });
     }

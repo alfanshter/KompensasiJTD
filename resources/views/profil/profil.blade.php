@@ -69,7 +69,7 @@
           @if(auth()->user()->role ==1)
           <div class="form-group">
             <label for="exampleInputName1">Jumlah Kompen </label>
-            <input type="text" class="form-control" required value="{{auth()->user()->kompen}}" disabled>
+            <input type="text" class="form-control" required value="{{auth()->user()->jumlahkompen}}" disabled>
           </div>
 
           @endif
