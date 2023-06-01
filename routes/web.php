@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FingerCOntroller;
 use App\Http\Controllers\KegiatanKompenController;
 use App\Http\Controllers\KompenController;
 use App\Http\Controllers\UsersController;
@@ -47,3 +48,6 @@ Route::get('/hapuskegiatan/{id}', [KegiatanKompenController::class, 'delete']);
 Route::post('/kegiatan', [KegiatanKompenController::class, 'store']);
 Route::post('/editkegiatan', [KegiatanKompenController::class, 'update']);
 
+//Fingerprint
+Route::get('/request_finger', [FingerCOntroller::class, 'request_finger']);
+Route::post('/post_fingerprint', [FingerCOntroller::class, 'post_fingerprint']);

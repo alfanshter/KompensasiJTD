@@ -44,6 +44,7 @@
                                 <th> Nama </th>
                                 <th> Alamat </th>
                                 <th> Jumlah Kompen </th>
+                                <th> ID Finger </th>
                                 <th> Aksi </th>
                             </tr>
                         </thead>
@@ -60,6 +61,16 @@
                                 <td>{{$item->jumlahkompen}}</td>
                                 @endif
 
+                                <td>
+                                    @if($item->finger == null)
+                                    <div class="d-flex justify-content-sm-center mt-2">
+                                        <a href="/request_finger?id={{$item->id}}" class="btn btn-info" onclick="return confirm('Apakah anda setuju ?')" >Daftar Finger</a>
+                                    </div>
+                                    @else
+                                    <p>Terdaftar Finger</p>
+                                    @endif
+                                    
+                                </td>
                                 <td class="align-middle text-center">
 
                                     <div class="d-flex justify-content-sm-center mt-2">
