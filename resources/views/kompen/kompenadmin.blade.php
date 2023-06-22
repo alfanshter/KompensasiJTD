@@ -72,6 +72,10 @@
                                             <form action="/terimakompen" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{$item->id}}">
+                                                <input type="hidden" name="nama" value="{{$item->mahasiswa->nama}}">
+                                                <input type="hidden" name="nip" value="{{$item->mahasiswa->nip}}">
+                                                <input type="hidden" name="pekerjaan" value="{{$item->kegiatan->kegiatan}}">
+                                                <input type="hidden" name="jam" value="{{$item->kegiatan->jam}}">
                                                 <button type="submit" onclick="return confirm('Apakah anda akan menerima kompen ?')" class="btn btn-primary" style="margin-left: 10px">Terima</button>
                                             </form>
                                             <a href="/tolakkompen/{{$item->id}}" onclick="return confirm('Apakah anda akan menolak kompen ?')" class="btn btn-danger" style="margin-left: 10px">Tolak</a>

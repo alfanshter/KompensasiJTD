@@ -41,6 +41,7 @@ Route::post('/kompenmahasiswa', [KompenController::class, 'ajukankompen']);
 Route::post('/batalkompen', [KompenController::class, 'batalkompen']);
 Route::post('/terimakompen', [KompenController::class, 'terimakompen']);
 Route::get('/tolakkompen/{id}', [KompenController::class, 'tolakkompen']);
+Route::post('/printpdf', [KompenController::class, 'printpdf']);
 
 //Kegiatan Kompen
 Route::get('/kegiatan', [KegiatanKompenController::class, 'index']);
@@ -51,3 +52,5 @@ Route::post('/editkegiatan', [KegiatanKompenController::class, 'update']);
 //Fingerprint
 Route::get('/request_finger', [FingerCOntroller::class, 'request_finger']);
 Route::post('/post_fingerprint', [FingerCOntroller::class, 'post_fingerprint']);
+Route::post('/request_absen', [FingerCOntroller::class, 'request_absen']);
+Route::post('/request_absen_selesai', [FingerCOntroller::class, 'request_absen_selesai']);

@@ -40,6 +40,8 @@
                                 <th> Jumlah Jam </th>
                                 <th> Status </th>
                                 <th> Tanggal </th>
+                                <th> Tanggal Absen </th>
+                                <th> Tanggal  Selesai</th>
                                 <th> Aksi </th>
                             </tr>
                         </thead>
@@ -59,20 +61,50 @@
                                 <td>Ditolak</td>
                                 @endif
                                 @if($item->is_status == 3)
+                                <td>Sudah Absen Masuk</td>
+                                @endif
+                                @if($item->is_status == 4)
                                 <td>Selesai</td>
                                 @endif
                                 <td>{{$item->tanggal}}|{{$item->waktu}}</td>
-
+                                <td>{{$item->tanggal_absen}}</td>
+                                <td>{{$item->tanggal_selesai}}</td>
                                 <td class="align-middle text-center">
 
                                     <div class="d-flex justify-content-sm-center mt-2">
                                         <div class="d-flex justify-content-sm-center mt-2">
-                                            <form action="batalkompen" method="POST">
+                                            @if($item->is_status == 1)
+                                            <form action="/request_absen" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="kegiatan_id" value="{{$item->kegiatan_id}}">
+                                                <input type="hidden" name="id" value="{{$item->id}}">
+                                                <button type="submit" onclick="return confirm('Apakah anda akan melakukan absen kompen ?')" class="btn btn-primary" style="margin-left: 10px">Absen Masuk</button>
+                                            </form>
+                                            @endif
+                                            @if($item->is_status == 3)
+                                            <form action="/request_absen_selesai" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="kegiatan_id" value="{{$item->kegiatan_id}}">
+                                                <input type="hidden" name="id" value="{{$item->id}}">
+                                                <button type="submit" onclick="return confirm('Apakah anda akan menyelesaikan kompen ?')" class="btn btn-primary" style="margin-left: 10px">Absen Selesai</button>
+                                            </form>
+                                            @endif
+                                            @if($item->is_status ==0 || $item->is_status ==1 || $item->is_status ==2 || $item->is_status ==3)
+                                            <form action="/batalkompen" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="kegiatan_id" value="{{$item->kegiatan_id}}">
                                                 <input type="hidden" name="id" value="{{$item->id}}">
                                                 <button type="submit" onclick="return confirm('Apakah anda akan membatalkan kompen ?')" class="btn btn-danger" style="margin-left: 10px">Batal</button>
                                             </form>
+                                            @endif
+                                            @if($item->is_status == 4)
+                                            <form action="/printpdf" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{$item->id}}">
+                                                <button type="submit" onclick="return confirm('Apakah anda akan menyelesaikan kompen ?')" class="btn btn-primary" style="margin-left: 10px">Cetak Bukti</button>
+                                            </form>
+                                            @endif
+
                                         </div>
                                     </div>
                                 </td>

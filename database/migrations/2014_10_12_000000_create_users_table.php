@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('telegram');
             $table->string('alamat');
             $table->integer('jumlahkompen')->nullable();
+            $table->integer('kelas')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('role')->default(0);

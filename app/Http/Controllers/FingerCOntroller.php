@@ -27,7 +27,7 @@ class FingerCOntroller extends Controller
         $database->getReference('fingerprint/status')->set(0);
         $database->getReference('fingerprint/daftar')
             ->set([
-                'uid' => $request->input('id'),
+                'uid' => (int)$request->input('id'),
                 'nama' => $user->nama
             ]);
 
@@ -48,5 +48,35 @@ class FingerCOntroller extends Controller
         ];
 
         return response()->json($response, Response::HTTP_CREATED);
+    }
+
+    function request_absen(Request $request) {
+        
+        $user = User::where('id',$request->input('id'))->first();
+        $database = Firebase::database();
+        $database->getReference('fingerprint/status')->set(2);
+        $database->getReference('fingerprint/absen')
+            ->set([
+                'uid' => (int)auth()->user()->id,
+                'nama' => auth()->user()->nama
+            ]);
+
+        notify()->success('Silahkan cek alat fingerprint', 'Mahasiswa');
+        return redirect('/kompenmahasiswa');
+    }
+
+    function request_absen_selesai(Request $request) {
+        
+        $user = User::where('id',$request->input('id'))->first();
+        $database = Firebase::database();
+        $database->getReference('fingerprint/status')->set(3);
+        $database->getReference('fingerprint/absen')
+            ->set([
+                'uid' => (int)auth()->user()->id,
+                'nama' => auth()->user()->nama
+            ]);
+
+        notify()->success('Silahkan cek alat fingerprint', 'Mahasiswa');
+        return redirect('/kompenmahasiswa');
     }
 }

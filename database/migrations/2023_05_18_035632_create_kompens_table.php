@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer('kegiatan_id');
             $table->string('dosen')->nullable();
             $table->string('keterangan')->nullable();
+            $table->dateTime('tanggal_absen')->nullable();
+            $table->dateTime('tanggal_selesai')->nullable();
             $table->integer('is_status')->default(0);
             $table->timestamps();
         });
