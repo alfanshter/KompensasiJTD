@@ -78,6 +78,8 @@
                                                 @csrf
                                                 <input type="hidden" name="kegiatan_id" value="{{$item->kegiatan_id}}">
                                                 <input type="hidden" name="id" value="{{$item->id}}">
+                                                <input type="hidden" name="pekerjaan" value="{{$item->kegiatan->kegiatan}}">
+                                                <input type="hidden" name="jam" value="{{$item->kegiatan->jam}}">
                                                 <button type="submit" onclick="return confirm('Apakah anda akan melakukan absen kompen ?')" class="btn btn-primary" style="margin-left: 10px">Absen Masuk</button>
                                             </form>
                                             @endif
@@ -86,6 +88,8 @@
                                                 @csrf
                                                 <input type="hidden" name="kegiatan_id" value="{{$item->kegiatan_id}}">
                                                 <input type="hidden" name="id" value="{{$item->id}}">
+                                                <input type="hidden" name="pekerjaan" value="{{$item->kegiatan->kegiatan}}">
+                                                <input type="hidden" name="jam" value="{{$item->kegiatan->jam}}">
                                                 <button type="submit" onclick="return confirm('Apakah anda akan menyelesaikan kompen ?')" class="btn btn-primary" style="margin-left: 10px">Absen Selesai</button>
                                             </form>
                                             @endif

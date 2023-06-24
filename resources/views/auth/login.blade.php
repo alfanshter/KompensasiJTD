@@ -33,7 +33,7 @@
                         <div class="auth-form-light text-left p-5">
                             <center>
                                 <div class="brand-logo">
-                                    <img src="{{asset('images/logojtd.jpeg')}}" />
+                                    <img src="{{asset('images/logopolinema.png')}}" />
 
                                 </div>
 

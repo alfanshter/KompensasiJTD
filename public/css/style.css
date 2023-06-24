@@ -5077,6 +5077,7 @@ textarea.form-control-lg {
   flex-wrap: wrap;
   padding-left: 0;
   margin-bottom: 0;
+  
   list-style: none; }
 
 .nav-link {
@@ -5159,6 +5160,7 @@ textarea.form-control-lg {
   display: block; }
 
 .navbar {
+  
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -5181,6 +5183,7 @@ textarea.form-control-lg {
     -ms-flex-wrap: inherit;
     flex-wrap: inherit;
     -webkit-box-align: center;
+    
     -ms-flex-align: center;
     align-items: center;
     -webkit-box-pack: justify;
@@ -5191,6 +5194,7 @@ textarea.form-control-lg {
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
   margin-right: 1rem;
+  
   font-size: 1.25rem;
   text-decoration: none;
   white-space: nowrap; }
@@ -14107,7 +14111,9 @@ dl {
 /* Sidebar */
 .sidebar {
   min-height: calc(100vh - 70px);
-  background: #ffffff;
+  background-image: url("/images/bgorang.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
   font-family: "ubuntu-regular", sans-serif;
   padding: 0;
   width: 260px;

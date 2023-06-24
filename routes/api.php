@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FingerCOntroller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/absen', [FingerCOntroller::class, 'absen']);
+Route::post('/absen_selesai', [FingerCOntroller::class, 'absen_selesai']);
+Route::post('/daftar_finger', [FingerCOntroller::class, 'daftar_finger']);
