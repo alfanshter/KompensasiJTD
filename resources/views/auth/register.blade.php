@@ -29,7 +29,7 @@
                         <div class="auth-form-light text-left p-5">
                             <center>
                                 <div class="brand-logo">
-                                    <img src="{{asset('images/logojtd.jpeg')}}">
+                                    <img src="{{asset('images/logopolinema.png')}}">
 
                                 </div>
 
@@ -89,7 +89,7 @@
 
                                 <center>
                                     <div class="mt-3">
-                                        <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">SIGN UP</button>
+                                        <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">DAFTAR</button>
                                     </div>
 
                                 </center>

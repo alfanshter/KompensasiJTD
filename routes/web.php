@@ -40,7 +40,7 @@ Route::get('/kompenadmin', [KompenController::class, 'kompenadmin']);
 Route::post('/kompenmahasiswa', [KompenController::class, 'ajukankompen']);
 Route::post('/batalkompen', [KompenController::class, 'batalkompen']);
 Route::post('/terimakompen', [KompenController::class, 'terimakompen']);
-Route::get('/tolakkompen/{id}', [KompenController::class, 'tolakkompen']);
+Route::post('/tolakkompen', [KompenController::class, 'tolakkompen']);
 Route::post('/printpdf', [KompenController::class, 'printpdf']);
 
 //Kegiatan Kompen

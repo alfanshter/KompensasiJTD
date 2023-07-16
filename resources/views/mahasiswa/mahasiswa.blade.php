@@ -43,8 +43,8 @@
                                 <th> No</th>
                                 <th> Nama </th>
                                 <th> Alamat </th>
-                                <th> Jumlah Kompen </th>
-                                <th> ID Finger </th>
+                                <th> Jumlah Kompensasi </th>
+                                <th> ID Fingerprint </th>
                                 <th> Aksi </th>
                             </tr>
                         </thead>
@@ -64,17 +64,17 @@
                                 <td>
                                     @if($item->finger == null)
                                     <div class="d-flex justify-content-sm-center mt-2">
-                                        <a href="/request_finger?id={{$item->id}}" class="btn btn-info" onclick="return confirm('Apakah anda setuju ?')" >Daftar Finger</a>
+                                        <a href="/request_finger?id={{$item->id}}" class="btn btn-info" onclick="return confirm('Apakah anda setuju ?')" >Daftar Fingerprint</a>
                                     </div>
                                     @else
-                                    <p>Terdaftar Finger</p>
+                                    <p>Terdaftar Fingerprint</p>
                                     @endif
                                     
                                 </td>
                                 <td class="align-middle text-center">
 
                                     <div class="d-flex justify-content-sm-center mt-2">
-                                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editMahasiswa{{$item->id}}">Edit Kompen</button>
+                                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editMahasiswa{{$item->id}}">Edit Kompensasi</button>
                                     </div>
                                 </td>
                             </tr>
@@ -83,7 +83,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="card-title">Edit Jam Kompen</h4>
+                                            <h4 class="card-title">Edit Jam Kompensasi</h4>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <form action="/editkompen" method="POST">
@@ -91,7 +91,7 @@
                                             <input type="hidden" name="id" value="{{$item->id}}">
                                             <div class="modal-body">
                                                 <div class="form-group">
-                                                    <label for="exampleTextarea1">Jumlah Kompen</label>
+                                                    <label for="exampleTextarea1">Jumlah Kompensasi</label>
                                                     <input class="form-control" name="kompen" type="number" value="{{$item->kompen}}" id="exampleTextarea1">
                                                 </div>
                                                 <div class="modal-footer">

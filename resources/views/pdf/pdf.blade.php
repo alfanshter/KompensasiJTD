@@ -97,13 +97,13 @@
         <thead>
             <tr>
                 <th class="tg-0lax">Jumlah Jam Kompen</th>
-                <th class="tg-0lax akhir">: {{$kompen->mahasiswa->jumlahkompen}} Jam</th>
+                <th class="tg-0lax akhir">: {{$kompen->mahasiswa->jumlahkompen + $kompen->jam}} Jam</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td class="tg-0lax">Kompensasi yang Sudah Dibayar</td>
-                <td class="tg-0lax">: {{$kompen->kegiatan->jam}} Jam</td>
+                <td class="tg-0lax">: {{$kompen->jam}} Jam</td>
             </tr>
             <tr>
                 <td class="tg-0lax">Sisa Kompensasi</td>

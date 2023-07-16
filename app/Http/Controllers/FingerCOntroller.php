@@ -211,6 +211,13 @@ class FingerCOntroller extends Controller
                     'tanggal_selesai' => Carbon::now()
                 ]);
 
+                $datakompen = Kompen::where('id', $data['id_kompen'])->first();
+                //pengurangan jam absen
+                $pengurangan = (int)$user->jumlahkompen - (int)$datakompen->jam;
+                $kurangjam = User::where('id',$user->id)->update([
+                    'jumlahkompen' => $pengurangan
+                ]);
+
                 //kirim telegram
                 $nama = $data['nama'];
                 $pekerjaan = $data['pekerjaan'];

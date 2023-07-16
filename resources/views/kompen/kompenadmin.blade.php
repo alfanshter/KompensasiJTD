@@ -8,7 +8,7 @@
         <span class="page-title-icon bg-gradient-primary text-white me-2">
             <i class="mdi mdi-home"></i>
         </span>
-        Pengajuan Kompen
+        Pengajuan Kompensasi
     </h3>
     <nav aria-label="breadcrumb">
         <ul class="breadcrumb">
@@ -47,7 +47,7 @@
                                 <td> {{$item->mahasiswa->nama}} </td>
                                 <td> {{$item->mahasiswa->nip}} </td>
                                 <td> {{$item->kegiatan->kegiatan}} </td>
-                                <td> {{$item->kegiatan->jam}} </td>
+                                <td> {{$item->jam}} </td>
                                 @if($item->is_status == 0)
                                 <td>Menunggu Konfirmasi</td>
                                 @endif
@@ -78,7 +78,15 @@
                                                 <input type="hidden" name="jam" value="{{$item->kegiatan->jam}}">
                                                 <button type="submit" onclick="return confirm('Apakah anda akan menerima kompen ?')" class="btn btn-primary" style="margin-left: 10px">Terima</button>
                                             </form>
-                                            <a href="/tolakkompen/{{$item->id}}" onclick="return confirm('Apakah anda akan menolak kompen ?')" class="btn btn-danger" style="margin-left: 10px">Tolak</a>
+                                            <form action="/tolakkompen" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="kegiatan_id" value="{{$item->kegiatan_id}}">
+                                                <input type="hidden" name="kegiatan_jam" value="{{$item->kegiatan->jam}}">
+                                                <input type="hidden" name="jam" value="{{$item->jam}}">
+                                                <input type="hidden" name="id" value="{{$item->id}}">
+                                                <button type="submit" onclick="return confirm('Apakah anda akan menolak kompen ?')" class="btn btn-danger" style="margin-left: 10px">Tolak</button>
+                                            </form>
+
                                         </div>
                                     </div>
                                 </td>

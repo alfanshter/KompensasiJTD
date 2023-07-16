@@ -50,7 +50,7 @@
             @include('layout.sidebar')
             <!-- partial -->
             <div class="main-panel">
-                <div class="content-wrapper">
+                <div class="content-wrapper" style="background-image: url('/images/bgkuningsoft.jpg');">
                     @yield('konten')
                     <script>
 
@@ -59,7 +59,7 @@
                 </div>
                 <!-- content-wrapper ends -->
                 <!-- partial:partials/_footer.html -->
-                <footer class="footer">
+                <footer class="footer"  >
                     <div class="container-fluid d-flex justify-content-between">
                         <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Kompensasi JTD</span>
                         <span-- class="float-none float-sm-end mt-1 mt-sm-0 text-end">

@@ -17,7 +17,9 @@ return new class extends Migration
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->date('tanggal');
             $table->time('waktu');
-            $table->integer('kegiatan_id');
+            $table->foreignId('kegiatan_id');
+            $table->foreign('kegiatan_id')->references('id')->on('kegiatans')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('jam')->default(0);
             $table->string('dosen')->nullable();
             $table->string('keterangan')->nullable();
             $table->dateTime('tanggal_absen')->nullable();

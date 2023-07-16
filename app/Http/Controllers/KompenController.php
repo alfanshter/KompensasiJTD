@@ -9,6 +9,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Symfony\Component\HttpFoundation\Response;
 
 class KompenController extends Controller
 {
@@ -35,6 +36,23 @@ class KompenController extends Controller
         ]);
     }
 
+    public function kompenmahasiswa_api(Request $request)
+    {
+
+        $user = User::where('nip',$request->input('nim'))->first();
+        $data = Kompen::where('is_status',4)->where('id_user', $user->id)
+            ->with('kegiatan')
+            ->get();
+
+            $response = [
+                'data' => $data,
+                'status' => 1
+            ];
+    
+            return response()->json($response, Response::HTTP_CREATED);
+
+    }
+
     public function kompenadmin()
     {
         $data = Kompen::orderBy('is_status', 'ASC')
@@ -48,6 +66,12 @@ class KompenController extends Controller
     public function ajukankompen(Request $request)
     {
 
+        //cek jam kompen
+        $cekjam = Kegiatan::where('id', $request->kegiatan_id)->first();
+        if ((int)$request->jam <= 0 || $request->jam > $cekjam->jam) {
+            notify()->error('Pengajuan gagal, Jam harus range 0 sampai jam yang ditentukan admin');
+            return redirect('/kompenmahasiswa');
+        }
         //cek nomor telegram
         $telegram = auth()->user()->telegram;
         $first_telegram = substr($telegram, 0, 2);
@@ -66,9 +90,18 @@ class KompenController extends Controller
         $post = $request->except(['_token']);
         $post['id_user'] = auth()->user()->id;
         $data = Kompen::create($post);
-        $update = Kegiatan::where('id', $post['kegiatan_id'])->update([
-            'is_status' => 1
-        ]);
+
+        if ($request->jam == $cekjam->jam) {
+            $update = Kegiatan::where('id', $post['kegiatan_id'])->update([
+                'is_status' => 1,
+                'jam' => $cekjam->jam - $request->jam
+            ]);
+        }else{
+            $update = Kegiatan::where('id', $post['kegiatan_id'])->update([
+                'jam' => $cekjam->jam - $request->jam
+            ]);
+
+        }
 
 
         // $str1 = substr($str, 2);
@@ -88,7 +121,8 @@ class KompenController extends Controller
         $data = Kompen::where('id', $request->id)->delete();
 
         $update = Kegiatan::where('id', $request->kegiatan_id)->update([
-            'is_status' => 0
+            'is_status' => 0,
+            'jam' => (int)$request->kegiatan_jam + (int)$request->jam
         ]);
 
         notify()->success('Kompen dibatalkan', 'Kompen');
@@ -118,11 +152,17 @@ Jumlah Jam : $jam";
         return redirect('/kompenadmin');
     }
 
-    public function tolakkompen($id)
+    public function tolakkompen(Request $request)
     {
-        $update = Kompen::where('id', $id)->update([
+        $update = Kompen::where('id', $request->id)->update([
             'is_status' => 2
         ]);
+
+        $update = Kegiatan::where('id', $request->kegiatan_id)->update([
+            'is_status' => 0,
+            'jam' => (int)$request->kegiatan_jam + (int)$request->jam
+        ]);
+
 
         notify()->success('Kompen ditolak', 'Kompen');
         return redirect('/kompenadmin');

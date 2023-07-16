@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FingerCOntroller;
+use App\Http\Controllers\KompenController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,3 +19,5 @@ use Illuminate\Support\Facades\Route;
 Route::post('/absen', [FingerCOntroller::class, 'absen']);
 Route::post('/absen_selesai', [FingerCOntroller::class, 'absen_selesai']);
 Route::post('/daftar_finger', [FingerCOntroller::class, 'daftar_finger']);
+
+Route::get('/kompenmahasiswa', [KompenController::class, 'kompenmahasiswa_api']);

@@ -8,7 +8,7 @@
         <span class="page-title-icon bg-gradient-primary text-white me-2">
             <i class="mdi mdi-home"></i>
         </span>
-        Kegiatan Kompen
+        Kegiatan Kompensasi
     </h3>
     <nav aria-label="breadcrumb">
         <ul class="breadcrumb">
@@ -101,7 +101,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="card-title">Tambah Kegiatan Kompen</h4>
+                        <h4 class="card-title">Tambah Kegiatan Kompensasi</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form action="/kegiatan" method="POST">
