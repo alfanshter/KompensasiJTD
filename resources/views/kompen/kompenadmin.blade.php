@@ -55,15 +55,19 @@
                                 <td>di ACC</td>
                                 @endif
                                 @if($item->is_status == 2)
-                                <td>Ditolak</td>
+                                <td>di Tolak </td>
                                 @endif
                                 @if($item->is_status == 3)
+                                <td>Sudah absen</td>
+                                @endif
+                                @if($item->is_status == 4)
                                 <td>Selesai</td>
                                 @endif
+
                                 <td>{{$item->mahasiswa->telegram}}</td>
 
                                 <td>{{$item->tanggal}}|{{$item->waktu}}</td>
-                                
+
                                 @if($item->is_status == 0)
                                 <td class="align-middle text-center">
 
@@ -73,19 +77,46 @@
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{$item->id}}">
                                                 <input type="hidden" name="nama" value="{{$item->mahasiswa->nama}}">
+                                                <input type="hidden" name="telepon" value="{{$item->mahasiswa->telegram}}">
                                                 <input type="hidden" name="nip" value="{{$item->mahasiswa->nip}}">
                                                 <input type="hidden" name="pekerjaan" value="{{$item->kegiatan->kegiatan}}">
                                                 <input type="hidden" name="jam" value="{{$item->kegiatan->jam}}">
                                                 <button type="submit" onclick="return confirm('Apakah anda akan menerima kompen ?')" class="btn btn-primary" style="margin-left: 10px">Terima</button>
                                             </form>
-                                            <form action="/tolakkompen" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="kegiatan_id" value="{{$item->kegiatan_id}}">
-                                                <input type="hidden" name="kegiatan_jam" value="{{$item->kegiatan->jam}}">
-                                                <input type="hidden" name="jam" value="{{$item->jam}}">
-                                                <input type="hidden" name="id" value="{{$item->id}}">
-                                                <button type="submit" onclick="return confirm('Apakah anda akan menolak kompen ?')" class="btn btn-danger" style="margin-left: 10px">Tolak</button>
-                                            </form>
+                                            <button type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger" style="margin-left: 10px">Tolak</button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <form action="/tolakkompen" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="nama" value="{{$item->mahasiswa->nama}}">
+                                                            <input type="hidden" name="telepon" value="{{$item->mahasiswa->telegram}}">
+                                                            <input type="hidden" name="nip" value="{{$item->mahasiswa->nip}}">
+                                                            <input type="hidden" name="pekerjaan" value="{{$item->kegiatan->kegiatan}}">
+                                                            <input type="hidden" name="kegiatan_id" value="{{$item->kegiatan_id}}">
+                                                            <input type="hidden" name="kegiatan_jam" value="{{$item->kegiatan->jam}}">
+                                                            <input type="hidden" name="jam" value="{{$item->jam}}">
+                                                            <input type="hidden" name="id" value="{{$item->id}}">
+
+                                                            <div class="modal-body">
+                                                                <div class="card-body">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleTextarea1">Kenapa anda membatalkan Kompensasi ? </label>
+                                                                        <input class="form-control" name="alasan" />
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Tambah</button>
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                         </div>
                                     </div>

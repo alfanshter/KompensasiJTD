@@ -28,6 +28,10 @@ class FingerCOntroller extends Controller
             'finger' => $request->finger
         ]);
 
+                $nama = $data['nama'];
+                $jam = $request->jam;
+        $linktelegram = "$nama+telah+berasil+melakukan+pendaftaran+fingerprint";
+        $sendmessage = Http::get('https://api.telegram.org/bot5926746981:AAGZ23-t-M5deho8u6camRWnEETzKXUBgXQ/sendMessage?chat_id=962901101&text=' . $linktelegram);
         $database->getReference('fingerprint/status')->set(1);
 
 
@@ -105,22 +109,7 @@ class FingerCOntroller extends Controller
             if ($user != null) {
                 //cek nomor telegram
                 $telegram = $user->telegram;
-                $first_telegram = substr($telegram, 0, 2);
-                $second_telegram = substr($telegram, 0, 3);
-                if ($first_telegram == '08') {
-                    $new_telegram = substr($telegram, 2);
-                    $telegram = '%2B628' . $new_telegram;
-                } else if ($second_telegram == '+62') {
-                    $telegram = $telegram;
-                } else {
-                    $response = [
-                        'message' => 'Nomor telegram salah',
-                        'status' => 0,
-                        'data' => $user
-                    ];
-                    return response()->json($response, Response::HTTP_OK);
-                }
-
+                
                 $kompen = Kompen::where('id', $data['id_kompen'])->update([
                     'is_status' => 3,
                     'tanggal_absen' => Carbon::now()
@@ -131,7 +120,7 @@ class FingerCOntroller extends Controller
                 $pekerjaan = $data['pekerjaan'];
                 $jam = $data['jam'];
                 $linktelegram = "$nama telah melakukan absen kompen dengan pekerjaan $pekerjaan jumlah $jam Jam";
-                $sendmessage = Http::get('https://api.telegram.org/bot5926746981:AAGZ23-t-M5deho8u6camRWnEETzKXUBgXQ/sendMessage?chat_id=1026793676&text=' . $linktelegram);
+                $sendmessage = Http::get('https://api.telegram.org/bot5926746981:AAGZ23-t-M5deho8u6camRWnEETzKXUBgXQ/sendMessage?chat_id='.$telegram.'&text=' . $linktelegram);
               
                 $database->getReference('fingerprint/status')->set(1);
 
@@ -190,22 +179,7 @@ class FingerCOntroller extends Controller
             if ($user != null) {
                 //cek nomor telegram
                 $telegram = $user->telegram;
-                $first_telegram = substr($telegram, 0, 2);
-                $second_telegram = substr($telegram, 0, 3);
-                if ($first_telegram == '08') {
-                    $new_telegram = substr($telegram, 2);
-                    $telegram = '%2B628' . $new_telegram;
-                } else if ($second_telegram == '+62') {
-                    $telegram = $telegram;
-                } else {
-                    $response = [
-                        'message' => 'Nomor telegram salah',
-                        'status' => 0,
-                        'data' => $user
-                    ];
-                    return response()->json($response, Response::HTTP_OK);
-                }
-
+                
                 $kompen = Kompen::where('id', $data['id_kompen'])->update([
                     'is_status' => 4,
                     'tanggal_selesai' => Carbon::now()
@@ -223,7 +197,7 @@ class FingerCOntroller extends Controller
                 $pekerjaan = $data['pekerjaan'];
                 $jam = $data['jam'];
                 $linktelegram = "$nama telah menyelesaikan pekerjaan $pekerjaan jumlah $jam Jam";
-                $sendmessage = Http::get('https://api.telegram.org/bot5926746981:AAGZ23-t-M5deho8u6camRWnEETzKXUBgXQ/sendMessage?chat_id=1026793676&text=' . $linktelegram);
+                $sendmessage = Http::get('https://api.telegram.org/bot5926746981:AAGZ23-t-M5deho8u6camRWnEETzKXUBgXQ/sendMessage?chat_id='.$telegram.'&text=' . $linktelegram);
               
                 $database->getReference('fingerprint/status')->set(1);
 

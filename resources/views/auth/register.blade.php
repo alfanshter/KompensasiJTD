@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="text" required name="telegram" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="Nomor Telegram">
+                                    <input type="text" required name="telegram" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="ID Telegram">
                                 </div>
 
                                 <div class="form-group">

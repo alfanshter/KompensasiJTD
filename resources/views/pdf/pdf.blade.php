@@ -107,7 +107,7 @@
             </tr>
             <tr>
                 <td class="tg-0lax">Sisa Kompensasi</td>
-                <td class="tg-0lax">: {{(int)$kompen->mahasiswa->jumlahkompen - (int)$kompen->kegiatan->jam}} Jam</td>
+                <td class="tg-0lax">: {{$kompen->mahasiswa->jumlahkompen}} Jam</td>
             </tr>
         </tbody>
     </table>

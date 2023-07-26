@@ -28,6 +28,8 @@ class KompenController extends Controller
         $kegiatan = Kegiatan::where('is_status', 0)->get();
         $data = Kompen::where('id_user', auth()->user()->id)
             ->with('kegiatan')
+            ->orderBy('is_status', 'ASC')
+            ->orderBy('created_at', 'DESC')
             ->get();
 
         return view('kompen.kompenmahasiswa', [
@@ -39,18 +41,17 @@ class KompenController extends Controller
     public function kompenmahasiswa_api(Request $request)
     {
 
-        $user = User::where('nip',$request->input('nim'))->first();
-        $data = Kompen::where('is_status',4)->where('id_user', $user->id)
+        $user = User::where('nip', $request->input('nim'))->first();
+        $data = Kompen::where('is_status', 4)->where('id_user', $user->id)
             ->with('kegiatan')
             ->get();
 
-            $response = [
-                'data' => $data,
-                'status' => 1
-            ];
-    
-            return response()->json($response, Response::HTTP_CREATED);
+        $response = [
+            'data' => $data,
+            'status' => 1
+        ];
 
+        return response()->json($response, Response::HTTP_CREATED);
     }
 
     public function kompenadmin()
@@ -74,17 +75,7 @@ class KompenController extends Controller
         }
         //cek nomor telegram
         $telegram = auth()->user()->telegram;
-        $first_telegram = substr($telegram, 0, 2);
-        $second_telegram = substr($telegram, 0, 3);
-        if ($first_telegram == '08') {
-            $new_telegram = substr($telegram, 2);
-            $telegram = '%2B628' . $new_telegram;
-        } else if ($second_telegram == '+62') {
-            $telegram = $telegram;
-        } else {
-            notify()->error('Pengajuan gagal, Nomor telegram tidak sesuai');
-            return redirect('/kompenmahasiswa');
-        }
+
 
 
         $post = $request->except(['_token']);
@@ -96,11 +87,10 @@ class KompenController extends Controller
                 'is_status' => 1,
                 'jam' => $cekjam->jam - $request->jam
             ]);
-        }else{
+        } else {
             $update = Kegiatan::where('id', $post['kegiatan_id'])->update([
                 'jam' => $cekjam->jam - $request->jam
             ]);
-
         }
 
 
@@ -110,7 +100,7 @@ class KompenController extends Controller
         //kirim ke bot telegram 
         $text = auth()->user()->nama . ' telah mengajukan kompen ' . $kegiatan->kegiatan . ' jumlah ' . $kegiatan->jam . ' jam';
         $linktelegram = urlencode('\n t.me/' . $telegram);
-        $sendmessage = Http::get('https://api.telegram.org/bot5926746981:AAGZ23-t-M5deho8u6camRWnEETzKXUBgXQ/sendMessage?chat_id=1026793676&text=' . $text . 'Silahkan konfirmasi ke nomor ' . $linktelegram);
+        $sendmessage = Http::get('https://api.telegram.org/bot5926746981:AAGZ23-t-M5deho8u6camRWnEETzKXUBgXQ/sendMessage?chat_id=962901101&text=' . $text . 'Silahkan konfirmasi ke nomor ' . $linktelegram);
         notify()->success('Pengajuan berhasil, Tunggu konfirmasi dari admin');
         return redirect('/kompenmahasiswa');
     }
@@ -139,6 +129,7 @@ class KompenController extends Controller
         //kirim ke bot telegram .
         $nama = $request->nama;
         $nim = $request->nip;
+        $telegram = $request->telepon;
         $pekerjaan = $request->pekerjaan;
         $jam = $request->jam;
         $linktelegram = "Admin+telah+menyetujui+kompen+mahasiswa 
@@ -146,7 +137,7 @@ Nama : $nama
 NIM : $nim 
 Pekerjaan : $pekerjaan 
 Jumlah Jam : $jam";
-        $sendmessage = Http::get('https://api.telegram.org/bot5842590995:AAElX8rcw1b357sqHQO6M6U121gZc69vGlw/sendMessage?chat_id=1026793676&text=' . $linktelegram);
+        $sendmessage = Http::get('https://api.telegram.org/bot5842590995:AAElX8rcw1b357sqHQO6M6U121gZc69vGlw/sendMessage?chat_id=' . $telegram . '&text=' . $linktelegram);
 
         notify()->success('Kompen diterima', 'Kompen');
         return redirect('/kompenadmin');
@@ -155,13 +146,30 @@ Jumlah Jam : $jam";
     public function tolakkompen(Request $request)
     {
         $update = Kompen::where('id', $request->id)->update([
-            'is_status' => 2
+            'is_status' => 2,
+            'alasan' =>$request->alasan
         ]);
 
         $update = Kegiatan::where('id', $request->kegiatan_id)->update([
             'is_status' => 0,
             'jam' => (int)$request->kegiatan_jam + (int)$request->jam
         ]);
+
+        //kirim ke bot telegram .
+        $nama = $request->nama;
+        $nim = $request->nip;
+        $telegram = $request->telepon;
+        $pekerjaan = $request->pekerjaan;
+        $jam = $request->jam;
+        $alasan = $request->alasan;
+        $linktelegram = "Admin+telah+menolak+kompen+mahasiswa 
+        Nama : $nama
+        NIM : $nim 
+        Pekerjaan : $pekerjaan 
+        Jumlah Jam : $jam
+        Alasan : $alasan";
+        $sendmessage = Http::get('https://api.telegram.org/bot5842590995:AAElX8rcw1b357sqHQO6M6U121gZc69vGlw/sendMessage?chat_id=' . $telegram . '&text=' . $linktelegram);
+
 
 
         notify()->success('Kompen ditolak', 'Kompen');
@@ -176,8 +184,13 @@ Jumlah Jam : $jam";
             ->with('mahasiswa')
             ->first();
 
+        $sisakompensasi = (int)$kompen->mahasiswa->jumlahkompen - (int)$kompen->kegiatan->jam;
+        if ($sisakompensasi <=0) {
+            $sisakompensasi = 0;
+        }
         $pdf = Pdf::loadView('pdf.pdf', [
-            'kompen' => $kompen
+            'kompen' => $kompen,
+            'sisakompensasi' => $sisakompensasi
         ])
             ->setPaper('a4', 'potrait');
 
