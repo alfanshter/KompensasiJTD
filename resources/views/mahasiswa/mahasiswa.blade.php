@@ -92,7 +92,7 @@
                                             <div class="modal-body">
                                                 <div class="form-group">
                                                     <label for="exampleTextarea1">Jumlah Kompensasi</label>
-                                                    <input class="form-control" name="kompen" type="number" value="{{$item->kompen}}" id="exampleTextarea1">
+                                                    <input class="form-control" name="kompen" type="number" value="{{$item->jumlahkompen}}" id="exampleTextarea1">
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

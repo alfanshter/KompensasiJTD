@@ -152,7 +152,11 @@
                                     <select name="kegiatan_id" id="kegiatan_id" class="form-control" required>
                                         <option value="">Pilih Kegiatan...</option>
                                         @foreach ($kegiatan as $kegiatans)
-                                        <option value="{{ $kegiatans->id }}">{{ $kegiatans->kegiatan }} - {{$kegiatans->jam}} Jam</option>
+                                        @if($kegiatans->dosen !=null)
+                                        <option value="{{ $kegiatans->id }}">{{ $kegiatans->kegiatan }} - {{$kegiatans->jam}} Jam (Dosen : {{$kegiatans->dosen->nama}})</option>
+                                        @else 
+                                        <option value="{{ $kegiatans->id }}">{{ $kegiatans->kegiatan }} - {{$kegiatans->jam}} Jam </option>
+                                        @endif
                                         @endforeach
                                     </select>
 
@@ -162,10 +166,10 @@
                                     <label for="exampleTextarea1">Jumlah Jam (Bisa disesuaikan)</label>
                                     <input class="form-control" type="number" name="jam" required />
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="exampleTextarea1">Dosen (Opsional)</label>
                                     <input class="form-control" type="text" placeholder="Masukkan nama dosen" name="dosen" />
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="modal-footer">

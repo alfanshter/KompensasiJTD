@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\FingerCOntroller;
 use App\Http\Controllers\KegiatanKompenController;
 use App\Http\Controllers\KompenController;
@@ -32,6 +33,12 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 
 //Mahasiswa
 Route::get('/mahasiswa', [UsersController::class, 'mahasiswa']);
+
+//dosen
+Route::get('/dosen', [DosenController::class, 'index']);
+Route::post('/dosen', [DosenController::class, 'store']);
+Route::post('/editdosen', [DosenController::class, 'edit']);
+Route::get('/hapusdosen/{id?}', [DosenController::class, 'delete']);
 
 //Kompen
 Route::post('/editkompen', [KompenController::class, 'editkompen']);

@@ -16,7 +16,7 @@ class KompenController extends Controller
     public function editkompen(Request $request)
     {
         $data = User::where('id', $request->id)->update([
-            'jumlahkompen' => $request->kompen
+            'jumlahkompen' => $request->kompen * 2
         ]);
 
         notify()->success('Edit kompen berhasil');
@@ -25,7 +25,9 @@ class KompenController extends Controller
 
     public function kompenmahasiswa()
     {
-        $kegiatan = Kegiatan::where('is_status', 0)->get();
+        $kegiatan = Kegiatan::where('is_status', 0)
+        ->with('dosen')
+        ->get();
         $data = Kompen::where('id_user', auth()->user()->id)
             ->with('kegiatan')
             ->orderBy('is_status', 'ASC')
@@ -56,9 +58,19 @@ class KompenController extends Controller
 
     public function kompenadmin()
     {
-        $data = Kompen::orderBy('is_status', 'ASC')
+        if (auth()->user()->role ==0) {
+            $data = Kompen::orderBy('is_status', 'ASC')
             ->with('mahasiswa')
+            ->with('kegiatan')
             ->get();
+        }else{
+            $search = auth()->user()->id;
+            $data = Kompen::whereHas('kegiatan', function ($query) use ($search) {
+                $query->where('id_user', 'like', '%' . $search . '%');
+            })->get();
+    
+        }
+
         return view('kompen.kompenadmin', [
             'data' => $data
         ]);

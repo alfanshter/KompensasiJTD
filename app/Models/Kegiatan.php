@@ -9,4 +9,10 @@ class Kegiatan extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    public function dosen()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id');
+
+    }
 }

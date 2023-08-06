@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('kegiatan');
             $table->integer('jam');
+            $table->integer('id_user')->nullable();
             $table->integer('is_status')->default(0);
             $table->timestamps();
         });

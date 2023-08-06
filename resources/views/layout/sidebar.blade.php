@@ -56,6 +56,13 @@
       </li>
 
       <li class="nav-item">
+        <a class="nav-link" href="/dosen">
+          <span class="menu-title">Dosen</span>
+          <i class="mdi mdi-file-document menu-icon"></i>
+        </a>
+      </li>
+
+      <li class="nav-item">
         <a class="nav-link" href="/kegiatan">
           <span class="menu-title">Kegiatan Kompensasi</span>
           <i class="mdi mdi-file-document menu-icon"></i>
@@ -83,5 +90,31 @@
       @endif
       {{--========================END Mahasiswa========================--}}
 
+      {{--========================Dosen========================--}}
+      @if (auth()->user()->role == 2)
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard">
+          <span class="menu-title">Dashboard</span>
+          <i class="mdi mdi-home menu-icon"></i>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/kegiatan">
+          <span class="menu-title">Kegiatan Kompensasi</span>
+          <i class="mdi mdi-file-document menu-icon"></i>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/kompenadmin">
+          <span class="menu-title">Pengajuan Mahasiswa</span>
+          <i class="mdi mdi-file-document menu-icon"></i>
+        </a>
+      </li>
+      
+
+      @endif
+      {{--========================end Dosen========================--}}
     </ul>
   </nav>

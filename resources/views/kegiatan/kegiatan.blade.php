@@ -31,7 +31,7 @@
                     </button>
 
                 </div>
-
+                <div class="table-responsive">
                 <table class="table table-bordered ">
                     <thead>
                         <tr class="table-danger text-center">
@@ -94,6 +94,7 @@
 
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
         <!-- Modal -->
